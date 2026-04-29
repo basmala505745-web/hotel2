@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>La Tua Futura Camera — Montelupo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --warm-white: #faf8f4;
+    --sage: #8a9e8c;
+    --sage-dark: #6b7d6d;
+    --taupe: #b5a89a;
+    --taupe-dark: #8c7d72;
+    --charcoal: #2e2e2e;
+    --gold: #c8a96e;
+    --gold-light: #e0c88e;
+    --text: #3a3530;
+    --muted: #7a7068;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--warm-white);
+    color: var(--text);
+    font-weight: 300;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(250,248,244,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(181,168,154,0.3);
+    transition: box-shadow .3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 24px rgba(46,46,46,.08); }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 400;
+    letter-spacing: .04em; color: var(--charcoal);
+    text-decoration: none;
+    line-height: 1.15;
+  }
+  .nav-logo .main-name { display: block; font-size: 1.5rem; }
+  .nav-logo .sub-name { display: block; font-size: 0.78rem; letter-spacing: .14em; color: var(--gold); font-style: italic; font-weight: 300; }
+
+  .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: .85rem; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--muted); transition: color .25s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+
+  .nav-cta {
+    background: var(--gold); color: #fff;
+    padding: .6rem 1.6rem; border-radius: 2px;
+    font-size: .8rem; letter-spacing: .14em; text-transform: uppercase;
+    text-decoration: none; transition: background .25s;
+  }
+  .nav-cta:hover { background: var(--taupe-dark); }
+
+  /* Account icon in nav */
+  .nav-account-btn {
+    position: relative;
+    background: none; border: 1.5px solid var(--taupe);
+    width: 38px; height: 38px; border-radius: 50%;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; transition: border-color .25s;
+    color: var(--charcoal);
+  }
+  .nav-account-btn:hover { border-color: var(--gold); }
+  .nav-account-badge {
+    position: absolute; top: -4px; right: -4px;
+    width: 14px; height: 14px; background: var(--gold);
+    border-radius: 50%; border: 2px solid var(--warm-white);
+    display: none;
+  }
+  .nav-account-badge.visible { display: block; }
+
+  /* ─── HERO ─── */
+  #home {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    background: linear-gradient(160deg, #ece6db 0%, #d9d0c3 100%);
+    padding-top: 80px;
+  }
+
+  .hero-img-placeholder {
+    position: absolute; inset:0;
+    background: linear-gradient(135deg, #d4c9b8 0%, #b8ad9e 50%, #ccc2b2 100%);
+  }
+
+  .hero-overlay {
+    position: absolute; inset:0;
+    background:
+      radial-gradient(ellipse 60% 70% at 70% 50%, rgba(250,248,244,.55) 0%, transparent 100%),
+      linear-gradient(180deg, rgba(250,248,244,.15) 0%, rgba(250,248,244,.4) 100%);
+  }
+
+  .hero-content {
+    position: relative; z-index:2;
+    text-align: center; max-width: 800px;
+    padding: 0 2rem;
+    animation: fadeUp .9s ease both;
+  }
+
+  .hero-eyebrow {
+    font-size: .78rem; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 300; line-height: 1.08;
+    color: var(--charcoal); margin-bottom: 1.4rem;
+  }
+  .hero-title em { font-style: italic; color: var(--sage-dark); }
+
+  .hero-sub {
+    font-size: 1rem; color: var(--muted); line-height: 1.7;
+    max-width: 520px; margin: 0 auto 2.2rem;
+  }
+
+  .hero-badges {
+    display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;
+    margin-bottom: 2.4rem;
+  }
+  .badge {
+    background: rgba(255,255,255,.6);
+    border: 1px solid rgba(181,168,154,.4);
+    padding: .45rem 1.1rem; border-radius: 20px;
+    font-size: .78rem; letter-spacing: .1em;
+    color: var(--taupe-dark); text-transform: uppercase;
+  }
+
+  .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--gold); color: #fff;
+    padding: .9rem 2.4rem; border-radius: 2px;
+    font-size: .85rem; letter-spacing: .14em; text-transform: uppercase;
+    text-decoration: none; transition: background .25s, transform .2s;
+    border: none; cursor: pointer;
+    font-family: 'Jost', sans-serif; font-weight: 400;
+  }
+  .btn-primary:hover { background: var(--taupe-dark); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent; color: var(--charcoal);
+    border: 1.5px solid var(--taupe);
+    padding: .9rem 2.4rem; border-radius: 2px;
+    font-size: .85rem; letter-spacing: .14em; text-transform: uppercase;
+    text-decoration: none; transition: border-color .25s, color .25s;
+    cursor: pointer; font-family: 'Jost', sans-serif; font-weight: 400;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left:50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap:.5rem;
+    color: var(--muted); font-size: .72rem; letter-spacing: .15em; text-transform: uppercase;
+    animation: bounce 2s ease infinite;
+  }
+  .scroll-hint::after {
+    content:''; width:1px; height: 40px;
+    background: linear-gradient(to bottom, var(--taupe), transparent);
+  }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 6rem 3rem; }
+  .section-label {
+    font-size: .72rem; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 300;
+    color: var(--charcoal); line-height: 1.2; margin-bottom: 1.2rem;
+  }
+  .section-sub { color: var(--muted); line-height: 1.75; max-width: 560px; }
+  .divider { width: 48px; height: 1.5px; background: var(--gold); margin: 1.6rem 0; }
+
+  /* ─── GALLERY ─── */
+  #galleria { background: var(--cream); padding: 6rem 3rem; }
+  .gallery-header { text-align: center; margin-bottom: 3rem; }
+  .gallery-header .section-sub { margin: 0 auto; }
+  .gallery-header .divider { margin: 1.6rem auto; }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 260px;
+    gap: 10px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .g-item {
+    background: #c9c0b3;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .g-item:hover { transform: scale(1.02); box-shadow: 0 12px 40px rgba(0,0,0,.15); }
+
+  .g-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ─── ROOM ─── */
+  #camera {
+    background: var(--warm-white);
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+
+  .room-img-side {
+    background: #c5bdb2; border-radius: 4px;
+    min-height: 480px;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,.6);
+    font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
+  }
+
+  .room-specs {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: .7rem; margin: 1.8rem 0;
+  }
+  .spec-item {
+    display: flex; align-items: center; gap: .6rem;
+    font-size: .82rem; color: var(--muted); letter-spacing: .05em;
+  }
+  .spec-item .icon { font-size: 1rem; }
+
+  .price-box {
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    padding: 1.2rem 1.6rem;
+    border-radius: 0 4px 4px 0;
+    margin-top: 1.6rem;
+  }
+  .price-label { font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+  .price-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; color: var(--charcoal); margin-top: .3rem;
+  }
+
+  /* ─── SERVIZI ─── */
+  #servizi { background: var(--cream); }
+  .servizi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem; margin-top: 3rem; max-width: 1000px;
+  }
+  .serv-card {
+    background: var(--warm-white); border-radius: 4px;
+    padding: 1.8rem; border: 1px solid rgba(181,168,154,.25);
+    transition: box-shadow .25s;
+  }
+  .serv-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.08); }
+  .serv-card .icon { font-size: 1.8rem; margin-bottom: .8rem; }
+  .serv-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 400; margin-bottom: .4rem; }
+  .serv-card p { font-size: .82rem; color: var(--muted); line-height: 1.65; }
+
+  /* ─── POSIZIONE ─── */
+  #posizione { background: var(--warm-white); }
+  .posizione-inner {
+    max-width: 900px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: start;
+  }
+  .info-list { list-style: none; }
+  .info-list li {
+    padding: .9rem 0;
+    border-bottom: 1px solid rgba(181,168,154,.2);
+    font-size: .88rem; color: var(--muted); line-height: 1.6;
+    display: flex; gap: .7rem;
+  }
+  .info-list li strong { color: var(--charcoal); font-weight: 500; min-width: 90px; display: block; }
+
+  .map-placeholder {
+    background: #d4cfc8; border-radius: 4px;
+    height: 300px; display: flex; align-items: center; justify-content: center;
+    color: rgba(80,70,60,.5); font-size: .9rem;
+    font-family: 'Cormorant Garamond', serif; letter-spacing: .08em;
+  }
+
+  /* ─── REGOLE ─── */
+  #regole { background: var(--cream); }
+  .regole-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.2rem; margin-top: 2.4rem; max-width: 860px;
+  }
+  .regola-item {
+    background: var(--warm-white);
+    padding: 1.4rem 1.6rem; border-radius: 4px;
+    border: 1px solid rgba(181,168,154,.2);
+  }
+  .regola-item .icon { font-size: 1.4rem; margin-bottom: .5rem; }
+  .regola-item h5 { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--taupe-dark); margin-bottom: .3rem; }
+  .regola-item p { font-size: .82rem; color: var(--muted); }
+
+  /* ─── PRENOTA ─── */
+  #prenota {
+    background: linear-gradient(135deg, #e8e1d6 0%, #d6ccbf 100%);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; flex-direction: column;
+    padding: 6rem 2rem;
+  }
+
+  .auth-container {
+    background: var(--warm-white);
+    border-radius: 6px;
+    box-shadow: 0 24px 80px rgba(0,0,0,.12);
+    width: 100%; max-width: 480px; overflow: hidden;
+  }
+
+  .auth-header {
+    background: var(--charcoal);
+    padding: 2.4rem 2.4rem 2rem; text-align: center;
+  }
+  .auth-header .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 300;
+    color: #fff; letter-spacing: .06em;
+    line-height: 1.2;
+  }
+  .auth-header .logo .sub { display: block; font-size: .85rem; color: var(--gold); font-style: italic; letter-spacing: .12em; margin-top: .2rem; }
+  .auth-header p { font-size: .78rem; color: rgba(255,255,255,.5); margin-top: .5rem; letter-spacing: .12em; text-transform: uppercase; }
+
+  .auth-tabs { display: flex; border-bottom: 1px solid rgba(181,168,154,.25); }
+  .auth-tab {
+    flex: 1; padding: 1rem; text-align: center;
+    font-size: .78rem; letter-spacing: .12em; text-transform: uppercase;
+    cursor: pointer; color: var(--muted);
+    border-bottom: 2px solid transparent;
+    transition: color .25s, border-color .25s;
+    background: none; border-left: none; border-right: none; border-top: none;
+    font-family: 'Jost', sans-serif;
+  }
+  .auth-tab.active { color: var(--gold); border-bottom: 2px solid var(--gold); }
+
+  .auth-body { padding: 2rem 2.4rem 2.4rem; }
+  .auth-panel { display: none; animation: fadeUp .3s ease; }
+  .auth-panel.active { display: block; }
+
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label {
+    display: block; font-size: .75rem; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: .5rem;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; border: 1px solid rgba(181,168,154,.4);
+    border-radius: 3px; padding: .75rem 1rem;
+    font-size: .9rem; font-family: 'Jost', sans-serif; font-weight: 300;
+    color: var(--charcoal); background: var(--cream);
+    transition: border-color .25s; outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .form-group .hint { font-size: .72rem; color: var(--muted); margin-top: .3rem; }
+
+  /* ─── PHONE INPUT WITH COUNTRY CODE ─── */
+  .phone-input-wrap { display: flex; gap: .5rem; align-items: stretch; }
+  .phone-prefix-select {
+    flex-shrink: 0;
+    width: 90px;
+    border: 1px solid rgba(181,168,154,.4); border-radius: 3px;
+    padding: .75rem .4rem; font-size: .82rem; font-family: 'Jost', sans-serif;
+    color: var(--charcoal); background: var(--cream);
+    outline: none; cursor: pointer;
+    transition: border-color .25s;
+    -webkit-appearance: none; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237a7068'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right .3rem center;
+    padding-right: 1.2rem; text-align: center;
+  }
+  .phone-prefix-select:focus { border-color: var(--gold); }
+  .phone-number-input { flex: 1; min-width: 0; }
+
+  .btn-full {
+    width: 100%; padding: .95rem;
+    background: var(--gold); color: #fff; border: none;
+    border-radius: 3px; font-size: .85rem; letter-spacing: .14em;
+    text-transform: uppercase; cursor: pointer;
+    font-family: 'Jost', sans-serif; font-weight: 400;
+    transition: background .25s; margin-top: .5rem;
+  }
+  .btn-full:hover { background: var(--taupe-dark); }
+  .btn-full:disabled { background: var(--taupe); cursor: not-allowed; }
+
+  .auth-divider {
+    text-align: center; font-size: .72rem; color: var(--muted);
+    margin: 1.2rem 0; letter-spacing: .1em; position: relative;
+  }
+  .auth-divider::before, .auth-divider::after {
+    content:''; position: absolute; top:50%;
+    width: 38%; height: 1px; background: rgba(181,168,154,.3);
+  }
+  .auth-divider::before { left:0; }
+  .auth-divider::after { right:0; }
+
+  /* Logged-in greeting */
+  .logged-greeting {
+    background: var(--cream); border-radius: 4px;
+    padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+    border: 1px solid rgba(181,168,154,.3);
+    font-size: .85rem; color: var(--charcoal);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logged-greeting .name { font-weight: 500; }
+  .logout-btn {
+    font-size: .72rem; color: var(--muted); cursor: pointer;
+    background: none; border: none; font-family: 'Jost', sans-serif;
+    text-decoration: underline; letter-spacing: .08em;
+  }
+  .logout-btn:hover { color: var(--gold); }
+
+  .confirm-box { text-align: center; padding: 1.5rem 0; display: none; }
+  .confirm-box .check { font-size: 3rem; margin-bottom: 1rem; }
+  .confirm-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 300; color: var(--charcoal); margin-bottom: .8rem;
+  }
+  .confirm-box p { font-size: .88rem; color: var(--muted); line-height: 1.7; }
+  .confirm-box .contact-highlight {
+    margin-top: 1.4rem; background: var(--cream);
+    border: 1px solid rgba(181,168,154,.3); border-radius: 4px; padding: 1.2rem;
+  }
+  .confirm-box .contact-highlight a {
+    color: var(--gold); font-size: 1.1rem; text-decoration: none;
+    font-family: 'Cormorant Garamond', serif; font-weight: 400;
+  }
+
+  /* ─── CONTATTI ─── */
+  #contatti { background: var(--charcoal); color: #fff; }
+  #contatti .section-label { color: var(--gold); }
+  #contatti .section-title { color: #fff; }
+  #contatti .section-sub { color: rgba(255,255,255,.5); }
+  #contatti .divider { background: var(--gold); }
+
+  .contatti-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem; margin-top: 3rem; max-width: 860px;
+  }
+  .contatto-item h4 {
+    font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: .8rem;
+  }
+  .contatto-item p, .contatto-item a {
+    font-size: .9rem; color: rgba(255,255,255,.7); line-height: 1.7; text-decoration: none;
+  }
+  .contatto-item a:hover { color: var(--gold-light); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #1e1e1e; color: rgba(255,255,255,.35);
+    text-align: center; padding: 1.8rem 2rem;
+    font-size: .75rem; letter-spacing: .1em; line-height: 1.8;
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* ─── TOAST ─── */
+  .toast {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 9999;
+    background: var(--charcoal); color: #fff;
+    padding: 1rem 1.6rem; border-radius: 4px;
+    font-size: .85rem; letter-spacing: .05em;
+    box-shadow: 0 8px 32px rgba(0,0,0,.2);
+    transform: translateY(20px); opacity: 0;
+    transition: all .3s ease;
+    border-left: 3px solid var(--gold);
+    max-width: 320px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.error { border-left-color: #e07070; }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(22px); }
+    to { opacity:1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-8px); }
+  }
+
+  .reveal { opacity:0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity:1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.4rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.4rem; }
+    #camera { grid-template-columns: 1fr; }
+    .posizione-inner { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    #prenota { padding: 4rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#home" class="nav-logo">
+    <span class="main-name">La Tua Futura Camera</span>
+    <span class="sub-name">Montelupo</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#galleria">Galleria</a></li>
+    <li><a href="#camera">La Camera</a></li>
+    <li><a href="#servizi">Servizi</a></li>
+    <li><a href="#posizione">Posizione</a></li>
+    <li><a href="#regole">Info</a></li>
+    <li><a href="#contatti">Contatti</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-account-btn" onclick="scrollToAccount()" title="Il mio account">
+      👤
+      <span class="nav-account-badge" id="accountBadge"></span>
+    </button>
+    <a href="#prenota" class="nav-cta">Prenota</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-img-placeholder"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Montelupo Fiorentino · Toscana</p>
+    <h1 class="hero-title">
+      Benvenuto nel tuo <em>rifugio</em> fiorentino
+    </h1>
+    <p class="hero-sub">
+      Un soggiorno che scalda il cuore, a 150 metri dalla stazione, nel cuore di Montelupo Fiorentino. Ci prendiamo cura di te come se fossi a casa.
+    </p>
+    <div class="hero-badges">
+      <span class="badge">✦ Tariffe migliori garantite</span>
+      <span class="badge">✦ Posizione centrale</span>
+      <span class="badge">✦ WiFi gratuito</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#prenota" class="btn-primary">Prenota Ora</a>
+      <a href="#galleria" class="btn-outline">Scopri di più</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Scorri</div>
+</section>
+
+<!-- GALLERIA -->
+<section id="galleria">
+  <div class="gallery-header reveal">
+    <p class="section-label">Fotografie</p>
+    <h2 class="section-title">La nostra struttura</h2>
+    <div class="divider"></div>
+    <p class="section-sub">Un ambiente curato in ogni dettaglio, pensato per il tuo benessere.</p>
+  </div>
+
+  <div class="gallery-grid reveal">
+    <div class="g-item"><img src="assets/room1.jpeg" alt="Camera principale"></div>
+    <div class="g-item"><img src="assets/room2.jpeg" alt="Vista città"></div>
+    <div class="g-item"><img src="assets/room3.jpeg" alt="Zona relax"></div>
+    <div class="g-item"><img src="assets/room4.jpeg" alt="Camera extra"></div>
+    <div class="g-item"><img src="assets/bathroom.jpeg" alt="Bagno privato"></div>
+    <div class="g-item"><img src="assets/enterence.jpeg" alt="Esterno"></div>
+    <div class="g-item"><img src="assets/room5.jpeg" alt="Camera extra"></div>
+    <div class="g-item"><img src="assets/room6.jpeg" alt="Camera extra"></div>
+  </div>
+</section>
+
+<!-- CAMERA -->
+<section style="padding: 6rem 3rem; background: var(--warm-white);">
+  <div id="camera" class="reveal">
+    <div class="room-img-side">
+      <div style="text-align:center; padding:2rem;">
+        <div style="font-size:3rem; margin-bottom:.8rem;">🛏</div>
+        <p style="font-size:1rem; letter-spacing:.06em;">La tua camera</p>
+        <p style="font-size:.78rem; margin-top:.3rem; opacity:.6;">Aggiungi la tua foto</p>
+      </div>
+    </div>
+    <div class="room-details">
+      <p class="section-label">La Camera</p>
+      <h2 class="section-title">Camera Doppia Standard</h2>
+      <div class="divider"></div>
+      <p class="section-sub">Una camera accogliente di 20 m², con vista città, arredata con gusto toscano. Tutto il comfort di cui hai bisogno, a due passi da tutto.</p>
+
+      <div class="room-specs">
+        <div class="spec-item"><span class="icon">📐</span> 20 m²</div>
+        <div class="spec-item"><span class="icon">🛏</span> 1 letto matrimoniale</div>
+        <div class="spec-item"><span class="icon">🚿</span> Doccia</div>
+        <div class="spec-item"><span class="icon">🛁</span> Bidet</div>
+        <div class="spec-item"><span class="icon">🌡</span> Riscaldamento</div>
+        <div class="spec-item"><span class="icon">❄️</span> Aria condizionata</div>
+        <div class="spec-item"><span class="icon">📶</span> WiFi gratuito</div>
+        <div class="spec-item"><span class="icon">🚭</span> Non fumatori</div>
+        <div class="spec-item"><span class="icon">🏙</span> Vista città</div>
+        <div class="spec-item"><span class="icon">🛁</span> Bagno privato</div>
+        <div class="spec-item"><span class="icon">🧺</span> Asciugamani inclusi</div>
+        <div class="spec-item"><span class="icon">👨‍👩‍👧</span> Camere familiari</div>
+      </div>
+
+      <div class="price-box">
+        <p class="price-label">Prezzo per 1 notte</p>
+        <p class="price-val">Contatta il proprietario</p>
+      </div>
+
+      <a href="#prenota" class="btn-primary" style="display:inline-block; margin-top:1.6rem;">Richiedi Disponibilità</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIZI -->
+<section id="servizi">
+  <p class="section-label reveal">Cosa offriamo</p>
+  <h2 class="section-title reveal">Servizi & Comfort</h2>
+  <div class="divider reveal"></div>
+  <div class="servizi-grid reveal">
+    <div class="serv-card">
+      <div class="icon">📶</div>
+      <h4>WiFi Gratuito</h4>
+      <p>Connessione WiFi ad alta velocità inclusa in camera, senza costi aggiuntivi.</p>
+    </div>
+    <div class="serv-card">
+      <div class="icon">🚿</div>
+      <h4>Bagno Privato</h4>
+      <p>Bagno privato completo di doccia, bidet e asciugamani puliti per ogni ospite.</p>
+    </div>
+    <div class="serv-card">
+      <div class="icon">❄️</div>
+      <h4>Clima & Riscaldamento</h4>
+      <p>Aria condizionata e riscaldamento regolabili per il massimo comfort in ogni stagione.</p>
+    </div>
+    <div class="serv-card">
+      <div class="icon">👨‍👩‍👧</div>
+      <h4>Camere Familiari</h4>
+      <p>Soluzione ideale per famiglie, con spazi pensati per accogliere grandi e piccini.</p>
+    </div>
+    <div class="serv-card">
+      <div class="icon">🚭</div>
+      <h4>Ambienti Non Fumatori</h4>
+      <p>Tutta la struttura è rigorosamente non fumatori per garantire un'aria pulita a tutti.</p>
+    </div>
+    <div class="serv-card">
+      <div class="icon">🏙</div>
+      <h4>Vista Città</h4>
+      <p>Goditi la vista su Montelupo Fiorentino direttamente dalla tua camera.</p>
+    </div>
+  </div>
+</section>
+
+<!-- POSIZIONE -->
+<section id="posizione" style="padding: 6rem 3rem;">
+  <div class="posizione-inner reveal">
+    <div>
+      <p class="section-label">Dove siamo</p>
+      <h2 class="section-title">Posizione Eccellente</h2>
+      <div class="divider"></div>
+      <p class="section-sub" style="margin-bottom:1.8rem;">A soli 150 metri dalla stazione ferroviaria, nel cuore di Montelupo Fiorentino. Tutti i servizi raggiungibili a piedi.</p>
+
+      <ul class="info-list">
+        <li><strong>Indirizzo</strong> Via Baccio da Montelupo 68, Montelupo Fiorentino (FI)</li>
+        <li><strong>Stazione</strong> 150 m · tutti i servizi vicini</li>
+        <li><strong>Check-in</strong> Nessuna età minima richiesta</li>
+        <li><strong>Animali</strong> Animali non ammessi</li>
+        <li><strong>Feste</strong> Non permesse</li>
+        <li><strong>Licenza</strong> IT048028B4QNLMYFT3</li>
+      </ul>
+    </div>
+    <div class="map-placeholder">📍 Via Baccio da Montelupo 68</div>
+  </div>
+</section>
+
+<!-- REGOLE -->
+<section id="regole">
+  <p class="section-label reveal">Regole della struttura</p>
+  <h2 class="section-title reveal">Informazioni Importanti</h2>
+  <div class="divider reveal"></div>
+  <div class="regole-grid reveal">
+    <div class="regola-item">
+      <div class="icon">📋</div>
+      <h5>Cancellazione</h5>
+      <p>Le condizioni variano per tipologia di alloggio. Verifica prima di prenotare.</p>
+    </div>
+    <div class="regola-item">
+      <div class="icon">🔞</div>
+      <h5>Età minima</h5>
+      <p>Nessuna età minima richiesta per il check-in.</p>
+    </div>
+    <div class="regola-item">
+      <div class="icon">🐾</div>
+      <h5>Animali</h5>
+      <p>Animali non ammessi nella struttura.</p>
+    </div>
+    <div class="regola-item">
+      <div class="icon">🚭</div>
+      <h5>Fumo</h5>
+      <p>Fumare non è consentito in nessuna area della struttura.</p>
+    </div>
+    <div class="regola-item">
+      <div class="icon">🎉</div>
+      <h5>Feste</h5>
+      <p>Non è permesso organizzare feste o eventi di alcun tipo.</p>
+    </div>
+    <div class="regola-item">
+      <div class="icon">⚖️</div>
+      <h5>Note legali</h5>
+      <p>La struttura non è disponibile per addii al nubilato/celibato o simili.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRENOTA / AUTH -->
+<section id="prenota">
+  <div style="text-align:center; margin-bottom:2.4rem;">
+    <p class="section-label" style="color:var(--gold);">Prenota il tuo soggiorno</p>
+    <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,4vw,2.6rem); font-weight:300; color:var(--charcoal);">Accedi o Registrati</h2>
+  </div>
+
+  <div class="auth-container">
+    <div class="auth-header">
+      <div class="logo">
+        La Tua Futura Camera
+        <span class="sub">Montelupo</span>
+      </div>
+      <p>Il tuo rifugio toscano</p>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-accedi" onclick="switchTab('accedi')">Accedi</button>
+      <button class="auth-tab" id="tab-registrati" onclick="switchTab('registrati')">Registrati</button>
+      <button class="auth-tab" id="tab-prenota-form" onclick="switchTab('prenota-form')">Prenota</button>
+    </div>
+
+    <div class="auth-body">
+
+      <!-- LOGIN -->
+      <div class="auth-panel active" id="panel-accedi">
+        <div class="form-group">
+          <label>Numero di telefono</label>
+          <div class="phone-input-wrap">
+            <select class="phone-prefix-select" id="login-prefix">
+              <option value="+39">🇮🇹 +39</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+33">🇫🇷 +33</option>
+              <option value="+49">🇩🇪 +49</option>
+              <option value="+34">🇪🇸 +34</option>
+              <option value="+351">🇵🇹 +351</option>
+              <option value="+31">🇳🇱 +31</option>
+              <option value="+32">🇧🇪 +32</option>
+              <option value="+41">🇨🇭 +41</option>
+              <option value="+43">🇦🇹 +43</option>
+              <option value="+30">🇬🇷 +30</option>
+              <option value="+48">🇵🇱 +48</option>
+              <option value="+40">🇷🇴 +40</option>
+              <option value="+7">🇷🇺 +7</option>
+              <option value="+380">🇺🇦 +380</option>
+              <option value="+90">🇹🇷 +90</option>
+              <option value="+20">🇪🇬 +20</option>
+              <option value="+212">🇲🇦 +212</option>
+              <option value="+213">🇩🇿 +213</option>
+              <option value="+216">🇹🇳 +216</option>
+              <option value="+218">🇱🇾 +218</option>
+              <option value="+966">🇸🇦 +966</option>
+              <option value="+971">🇦🇪 +971</option>
+              <option value="+974">🇶🇦 +974</option>
+              <option value="+965">🇰🇼 +965</option>
+              <option value="+973">🇧🇭 +973</option>
+              <option value="+968">🇴🇲 +968</option>
+              <option value="+962">🇯🇴 +962</option>
+              <option value="+961">🇱🇧 +961</option>
+              <option value="+963">🇸🇾 +963</option>
+              <option value="+964">🇮🇶 +964</option>
+              <option value="+98">🇮🇷 +98</option>
+              <option value="+92">🇵🇰 +92</option>
+              <option value="+91">🇮🇳 +91</option>
+              <option value="+86">🇨🇳 +86</option>
+              <option value="+81">🇯🇵 +81</option>
+              <option value="+82">🇰🇷 +82</option>
+              <option value="+55">🇧🇷 +55</option>
+              <option value="+54">🇦🇷 +54</option>
+              <option value="+52">🇲🇽 +52</option>
+              <option value="+61">🇦🇺 +61</option>
+              <option value="+27">🇿🇦 +27</option>
+              <option value="+234">🇳🇬 +234</option>
+              <option value="+254">🇰🇪 +254</option>
+            </select>
+            <input type="tel" id="login-phone" class="phone-number-input" placeholder="XXX XXX XXXX"/>
+          </div>
+          <p class="hint">Inserisci il numero con cui ti sei registrato</p>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="login-pass" placeholder="••••••••"/>
+        </div>
+        <button class="btn-full" onclick="handleLogin()">Accedi</button>
+        <div class="auth-divider">oppure</div>
+        <button class="btn-outline" style="width:100%; padding:.85rem;" onclick="switchTab('registrati')">Crea un account</button>
+      </div>
+
+      <!-- REGISTER -->
+      <div class="auth-panel" id="panel-registrati">
+        <div class="form-group">
+          <label>Nome completo</label>
+          <input type="text" id="reg-name" placeholder="Mario Rossi"/>
+        </div>
+        <div class="form-group">
+          <label>Numero di telefono</label>
+          <div class="phone-input-wrap">
+            <select class="phone-prefix-select" id="reg-prefix">
+              <option value="+39">🇮🇹 +39</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+33">🇫🇷 +33</option>
+              <option value="+49">🇩🇪 +49</option>
+              <option value="+34">🇪🇸 +34</option>
+              <option value="+351">🇵🇹 +351</option>
+              <option value="+31">🇳🇱 +31</option>
+              <option value="+32">🇧🇪 +32</option>
+              <option value="+41">🇨🇭 +41</option>
+              <option value="+43">🇦🇹 +43</option>
+              <option value="+30">🇬🇷 +30</option>
+              <option value="+48">🇵🇱 +48</option>
+              <option value="+40">🇷🇴 +40</option>
+              <option value="+7">🇷🇺 +7</option>
+              <option value="+380">🇺🇦 +380</option>
+              <option value="+90">🇹🇷 +90</option>
+              <option value="+20">🇪🇬 +20</option>
+              <option value="+212">🇲🇦 +212</option>
+              <option value="+213">🇩🇿 +213</option>
+              <option value="+216">🇹🇳 +216</option>
+              <option value="+218">🇱🇾 +218</option>
+              <option value="+966">🇸🇦 +966</option>
+              <option value="+971">🇦🇪 +971</option>
+              <option value="+974">🇶🇦 +974</option>
+              <option value="+965">🇰🇼 +965</option>
+              <option value="+973">🇧🇭 +973</option>
+              <option value="+968">🇴🇲 +968</option>
+              <option value="+962">🇯🇴 +962</option>
+              <option value="+961">🇱🇧 +961</option>
+              <option value="+963">🇸🇾 +963</option>
+              <option value="+964">🇮🇶 +964</option>
+              <option value="+98">🇮🇷 +98</option>
+              <option value="+92">🇵🇰 +92</option>
+              <option value="+91">🇮🇳 +91</option>
+              <option value="+86">🇨🇳 +86</option>
+              <option value="+81">🇯🇵 +81</option>
+              <option value="+82">🇰🇷 +82</option>
+              <option value="+55">🇧🇷 +55</option>
+              <option value="+54">🇦🇷 +54</option>
+              <option value="+52">🇲🇽 +52</option>
+              <option value="+61">🇦🇺 +61</option>
+              <option value="+27">🇿🇦 +27</option>
+              <option value="+234">🇳🇬 +234</option>
+              <option value="+254">🇰🇪 +254</option>
+            </select>
+            <input type="tel" id="reg-phone" class="phone-number-input" placeholder="XXX XXX XXXX"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="reg-email" placeholder="mario@email.it"/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="reg-pass" placeholder="••••••••"/>
+        </div>
+        <button class="btn-full" onclick="handleRegister()">Crea Account</button>
+      </div>
+
+      <!-- BOOKING FORM -->
+      <div class="auth-panel" id="panel-prenota-form">
+        <div id="logged-greeting-box" class="logged-greeting" style="display:none;">
+          <span>Benvenuto, <span class="name" id="greeting-name"></span> 👋</span>
+          <button class="logout-btn" onclick="handleLogout()">Esci</button>
+        </div>
+        <div class="form-group">
+          <label>Nome completo</label>
+          <input type="text" id="book-name" placeholder="Mario Rossi"/>
+        </div>
+        <div class="form-group">
+          <label>Numero di telefono</label>
+          <div class="phone-input-wrap">
+            <select class="phone-prefix-select" id="book-prefix">
+              <option value="+39">🇮🇹 +39</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+33">🇫🇷 +33</option>
+              <option value="+49">🇩🇪 +49</option>
+              <option value="+34">🇪🇸 +34</option>
+              <option value="+351">🇵🇹 +351</option>
+              <option value="+31">🇳🇱 +31</option>
+              <option value="+32">🇧🇪 +32</option>
+              <option value="+41">🇨🇭 +41</option>
+              <option value="+43">🇦🇹 +43</option>
+              <option value="+30">🇬🇷 +30</option>
+              <option value="+48">🇵🇱 +48</option>
+              <option value="+40">🇷🇴 +40</option>
+              <option value="+7">🇷🇺 +7</option>
+              <option value="+380">🇺🇦 +380</option>
+              <option value="+90">🇹🇷 +90</option>
+              <option value="+20">🇪🇬 +20</option>
+              <option value="+212">🇲🇦 +212</option>
+              <option value="+213">🇩🇿 +213</option>
+              <option value="+216">🇹🇳 +216</option>
+              <option value="+218">🇱🇾 +218</option>
+              <option value="+966">🇸🇦 +966</option>
+              <option value="+971">🇦🇪 +971</option>
+              <option value="+974">🇶🇦 +974</option>
+              <option value="+965">🇰🇼 +965</option>
+              <option value="+973">🇧🇭 +973</option>
+              <option value="+968">🇴🇲 +968</option>
+              <option value="+962">🇯🇴 +962</option>
+              <option value="+961">🇱🇧 +961</option>
+              <option value="+963">🇸🇾 +963</option>
+              <option value="+964">🇮🇶 +964</option>
+              <option value="+98">🇮🇷 +98</option>
+              <option value="+92">🇵🇰 +92</option>
+              <option value="+91">🇮🇳 +91</option>
+              <option value="+86">🇨🇳 +86</option>
+              <option value="+81">🇯🇵 +81</option>
+              <option value="+82">🇰🇷 +82</option>
+              <option value="+55">🇧🇷 +55</option>
+              <option value="+54">🇦🇷 +54</option>
+              <option value="+52">🇲🇽 +52</option>
+              <option value="+61">🇦🇺 +61</option>
+              <option value="+27">🇿🇦 +27</option>
+              <option value="+234">🇳🇬 +234</option>
+              <option value="+254">🇰🇪 +254</option>
+            </select>
+            <input type="tel" id="book-phone" class="phone-number-input" placeholder="XXX XXX XXXX"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Data di arrivo</label>
+          <input type="date" id="book-in"/>
+        </div>
+        <div class="form-group">
+          <label>Data di partenza</label>
+          <input type="date" id="book-out"/>
+        </div>
+        <div class="form-group">
+          <label>Numero di ospiti</label>
+          <select id="book-guests">
+            <option value="1">1 ospite</option>
+            <option value="2">2 ospiti</option>
+            <option value="3">3 ospiti</option>
+            <option value="4">4 ospiti</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Richieste speciali (opzionale)</label>
+          <textarea id="book-notes" placeholder="Es. piano alto, letto singolo, arrivo tardivo…"></textarea>
+        </div>
+        <button class="btn-full" id="bookBtn" onclick="handleBooking()">Invia Richiesta di Prenotazione</button>
+      </div>
+
+      <!-- CONFIRM -->
+      <div class="confirm-box" id="confirm-box">
+        <div class="check">✅</div>
+        <h3>Richiesta inviata con successo!</h3>
+        <p>Grazie per aver scelto La Tua Futura Camera.<br/>Il proprietario ti contatterà al più presto per confermare la tua prenotazione.</p>
+        <div class="contact-highlight">
+          <p style="font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:.5rem;">Contatta direttamente il proprietario</p>
+          <a href="tel:+393423681353">📞 +39 342 368 1353</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTATTI -->
+<section id="contatti">
+  <p class="section-label reveal">Parliamo</p>
+  <h2 class="section-title reveal">Contattaci</h2>
+  <div class="divider reveal"></div>
+  <p class="section-sub reveal">Hai una richiesta speciale? Scrivici o chiamaci direttamente. Saremo felici di aiutarti a pianificare il tuo soggiorno perfetto.</p>
+
+  <div class="contatti-grid reveal">
+    <div class="contatto-item">
+      <h4>Telefono</h4>
+      <a href="tel:+393423681353">+39 342 368 1353</a>
+      <p>Lun–Dom · 8:00 – 22:00</p>
+    </div>
+    <div class="contatto-item">
+      <h4>Indirizzo</h4>
+      <p>Via Baccio da Montelupo 68<br/>Montelupo Fiorentino (FI)<br/>150 m dalla stazione</p>
+    </div>
+    <div class="contatto-item">
+      <h4>Licenza struttura</h4>
+      <p>IT048028B4QNLMYFT3</p>
+    </div>
+    <div class="contatto-item">
+      <h4>Prenota ora</h4>
+      <a href="#prenota">Vai al form di prenotazione →</a>
+      <p style="margin-top:.4rem; font-size:.8rem;">A prenotazione confermata riceverai i recapiti completi della struttura.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 La Tua Futura Camera · Montelupo · Via Baccio da Montelupo 68, Montelupo Fiorentino (FI)</p>
+  <p>Licenza: IT048028B4QNLMYFT3 · <a href="tel:+393423681353">+39 342 368 1353</a></p>
+</footer>
+
+<script>
+// ─── EMAIL CONFIG (Web3Forms) ───
+// للتفعيل: اذهب إلى https://web3forms.com واكتب إيميلك Moftah446@gmail.com
+// ستصلك رسالة تفعيل، انقر عليها ثم انسخ الـ Access Key وضعه هنا:
+const WEB3FORMS_KEY = 'YOUR_ACCESS_KEY_HERE'; // ← ضع مفتاحك هنا
+const OWNER_EMAIL   = 'basmala505745@gmail.com';
+
+// ─── NAV SCROLL ───
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ─── INTERSECTION OBSERVER ───
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+reveals.forEach(r => observer.observe(r));
+
+// ─── TOAST ───
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isError ? ' error' : '');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ─── DB: LocalStorage ───
+function getUsers()    { return JSON.parse(localStorage.getItem('hm_users')    || '[]'); }
+function saveUsers(u)  { localStorage.setItem('hm_users', JSON.stringify(u)); }
+function getBookings() { return JSON.parse(localStorage.getItem('hm_bookings') || '[]'); }
+function saveBookings(b){ localStorage.setItem('hm_bookings', JSON.stringify(b)); }
+
+// ─── SESSION ───
+function getCurrentUser() {
+  try { return JSON.parse(sessionStorage.getItem('hm_current_user')) || null; }
+  catch(e) { return null; }
+}
+function setCurrentUser(u) {
+  if (u) sessionStorage.setItem('hm_current_user', JSON.stringify(u));
+  else sessionStorage.removeItem('hm_current_user');
+}
+
+// ─── ACCOUNT BADGE ───
+function updateAccountBadge() {
+  const user = getCurrentUser();
+  const badge = document.getElementById('accountBadge');
+  if (user) {
+    badge.classList.add('visible');
+  } else {
+    badge.classList.remove('visible');
+  }
+}
+
+function scrollToAccount() {
+  document.getElementById('prenota').scrollIntoView({ behavior: 'smooth' });
+  const user = getCurrentUser();
+  if (user) switchTab('prenota-form');
+}
+
+// ─── TAB SWITCH ───
+function switchTab(tab) {
+  ['accedi','registrati','prenota-form'].forEach((t, i) => {
+    document.querySelectorAll('.auth-tab')[i].classList.toggle('active', t === tab);
+  });
+  document.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  document.getElementById('confirm-box').style.display = 'none';
+
+  if (tab === 'prenota-form') {
+    const user = getCurrentUser();
+    const greetBox = document.getElementById('logged-greeting-box');
+    const greetName = document.getElementById('greeting-name');
+    if (user) {
+      greetBox.style.display = 'flex';
+      greetName.textContent = user.name.split(' ')[0];
+      document.getElementById('book-name').value = user.name;
+      const parts = user.phone.split('|');
+      if (parts.length === 2) {
+        document.getElementById('book-phone').value = parts[1];
+        // Set matching prefix
+        const sel = document.getElementById('book-prefix');
+        for (let o of sel.options) {
+          if (o.value === parts[0]) { o.selected = true; break; }
+        }
+      }
+    } else {
+      greetBox.style.display = 'none';
+    }
+  }
+}
+
+// ─── LOGIN ───
+function handleLogin() {
+  const prefix = document.getElementById('login-prefix').value;
+  const phone  = document.getElementById('login-phone').value.trim();
+  const pass   = document.getElementById('login-pass').value;
+  if (!phone || !pass) { showToast('Inserisci il numero di telefono e la password.', true); return; }
+  const fullPhone = prefix + '|' + phone;
+  const users = getUsers();
+  const user = users.find(u => u.phone === fullPhone && u.pass === pass);
+  if (!user) { showToast('Credenziali non corrette. Registrati per creare un account.', true); return; }
+  setCurrentUser(user);
+  updateAccountBadge();
+  showToast('Benvenuto, ' + user.name.split(' ')[0] + '! ✨');
+  switchTab('prenota-form');
+}
+
+// ─── REGISTER ───
+function handleRegister() {
+  const name  = document.getElementById('reg-name').value.trim();
+  const prefix = document.getElementById('reg-prefix').value;
+  const phone = document.getElementById('reg-phone').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const pass  = document.getElementById('reg-pass').value;
+  if (!name || !phone || !pass) { showToast('Compila tutti i campi obbligatori.', true); return; }
+  if (pass.length < 6) { showToast('La password deve avere almeno 6 caratteri.', true); return; }
+  const fullPhone = prefix + '|' + phone;
+  const users = getUsers();
+  if (users.find(u => u.phone === fullPhone)) { showToast('Numero già registrato. Accedi con le tue credenziali.', true); return; }
+  const newUser = { name, phone: fullPhone, email, pass, createdAt: new Date().toISOString() };
+  users.push(newUser);
+  saveUsers(users);
+  setCurrentUser(newUser);
+  updateAccountBadge();
+  showToast('Account creato con successo! Benvenuto ' + name.split(' ')[0] + ' 🎉');
+  switchTab('prenota-form');
+}
+
+// ─── LOGOUT ───
+function handleLogout() {
+  setCurrentUser(null);
+  updateAccountBadge();
+  document.getElementById('book-name').value = '';
+  document.getElementById('book-phone').value = '';
+  showToast('Sessione terminata. A presto!');
+  switchTab('accedi');
+}
+
+// ─── BOOKING ───
+async function handleBooking() {
+  const name   = document.getElementById('book-name').value.trim();
+  const prefix = document.getElementById('book-prefix').value;
+  const phone  = document.getElementById('book-phone').value.trim();
+  const inn    = document.getElementById('book-in').value;
+  const out    = document.getElementById('book-out').value;
+  const guests = document.getElementById('book-guests').value;
+  const notes  = document.getElementById('book-notes').value.trim();
+
+  if (!name || !phone || !inn || !out) {
+    showToast('Compila tutti i campi obbligatori per procedere.', true); return;
+  }
+  if (new Date(out) <= new Date(inn)) {
+    showToast("La data di partenza deve essere successiva all'arrivo.", true); return;
+  }
+
+  const fullPhone = prefix + ' ' + phone;
+  const nights = Math.ceil((new Date(out) - new Date(inn)) / 86400000);
+  const bookingId = 'HM-' + Date.now().toString(36).toUpperCase();
+  const timestamp = new Date().toLocaleString('it-IT');
+
+  // Save to localStorage DB
+  const bookings = getBookings();
+  const booking = { id: bookingId, name, phone: fullPhone, inn, out, guests, notes, nights, timestamp };
+  bookings.push(booking);
+  saveBookings(bookings);
+
+  // Send email via EmailJS
+  const btn = document.getElementById('bookBtn');
+  btn.disabled = true;
+  btn.textContent = 'Invio in corso…';
+
+  try {
+    if (WEB3FORMS_KEY !== '6f9c66bf-4a0c-4c0c-9cd4-c24859f8baed') {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: '🏨 Nuova Prenotazione — La Tua Futura Camera [' + bookingId + ']',
+          from_name: 'La Tua Futura Camera',
+          to: OWNER_EMAIL,
+          message:
+            '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+            '🏨 NUOVA PRENOTAZIONE\n' +
+            '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+            '👤 Nome ospite: ' + name + '\n' +
+            '📞 Telefono: ' + fullPhone + '\n\n' +
+            '📅 Check-in: ' + new Date(inn).toLocaleDateString('it-IT', {weekday:'long',year:'numeric',month:'long',day:'numeric'}) + '\n' +
+            '📅 Check-out: ' + new Date(out).toLocaleDateString('it-IT', {weekday:'long',year:'numeric',month:'long',day:'numeric'}) + '\n' +
+            '🌙 Notti: ' + nights + '\n' +
+            '👥 Ospiti: ' + guests + '\n\n' +
+            '📝 Richieste speciali:\n' + (notes || 'Nessuna') + '\n\n' +
+            '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+            '🔖 ID Prenotazione: ' + bookingId + '\n' +
+            '🕐 Ricevuta il: ' + timestamp + '\n' +
+            '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        })
+      });
+      const data = await res.json();
+      if (data.success) showToast('✉️ Email inviata al proprietario!');
+      else showToast('Prenotazione salvata. Problema invio email.', true);
+    } else {
+      console.info('Web3Forms non configurato. Prenotazione salvata localmente:', booking);
+    }
+  } catch(err) {
+    console.error('EmailJS error:', err);
+    showToast('Prenotazione salvata. Problema con l\'email — contatta direttamente.', true);
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Invia Richiesta di Prenotazione';
+
+  document.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('confirm-box').style.display = 'block';
+}
+
+// ─── DATE CONSTRAINTS ───
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('book-in').min  = today;
+document.getElementById('book-out').min = today;
+document.getElementById('book-in').addEventListener('change', function() {
+  document.getElementById('book-out').min = this.value;
+});
+
+// ─── INIT ───
+updateAccountBadge();
+const savedUser = getCurrentUser();
+if (savedUser) {
+  // Show Prenota tab active state already handled by switchTab
+}
+</script>
+</body>
+</html>
